@@ -181,7 +181,9 @@ def convert_content(html: str) -> str:
     if not html:
         return ""
     html = html.replace("\r\n", "\n").replace("\r", "\n")
-    html = html.replace("http://127.0.0.1/wordpress", "https://kokinn.com")
+    html = html.replace("http://127.0.0.1/wordpress", "")
+    html = html.replace("https://kokinn.com/wp-content/uploads/", "/wp-content/uploads/")
+    html = html.replace("http://kokinn.com/wp-content/uploads/", "/wp-content/uploads/")
     html = html.replace("http://kokinn.com", "https://kokinn.com")
     html = GUTENBERG_RE.sub("", html)
     html = MORE_RE.sub("\n\n", html)
@@ -287,7 +289,7 @@ def main() -> None:
             return ""
         rel = attached_files.get(thumb_id)
         if rel:
-            return f"https://kokinn.com/wp-content/uploads/{rel}"
+            return f"/wp-content/uploads/{rel}"
         att = attachments.get(thumb_id)
         if att and att.get("guid"):
             return str(att["guid"]).replace("http://kokinn.com", "https://kokinn.com")
