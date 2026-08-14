@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import PostCard from "../components/PostCard.astro";
-import AdSlot from "../components/AdSlot.astro";
 import site from "../data/site.json";
 
 const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
@@ -42,7 +41,6 @@ const featuredDesc = (featured?.data.description || "")
     )
   }
 
-  <AdSlot placement="home-top" />
   <div class="grid">
     {latest.map((post) => <PostCard post={post} />)}
   </div>

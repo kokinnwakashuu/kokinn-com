@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
-import AdSlot from "../../components/AdSlot.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -34,10 +33,8 @@ const date = post.data.pubDate.slice(0, 10);
         {post.data.updatedDate && <span>更新 {post.data.updatedDate.slice(0, 10)}</span>}
       </p>
     </header>
-    <AdSlot placement="top" />
     <div class="content">
       <Content />
     </div>
-    <AdSlot placement="bottom" />
   </article>
 </Base>

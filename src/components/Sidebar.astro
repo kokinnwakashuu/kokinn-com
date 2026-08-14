@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import AdSlot from "./AdSlot.astro";
 
 const posts = await getCollection("posts", ({ data }) => !data.draft);
 const counts = new Map<string, { name: string; count: number }>();
@@ -47,6 +46,4 @@ const categories = [...counts.entries()]
     </ul>
     <a class="side-more" href="/categories" data-google-vignette="false">すべてのカテゴリ</a>
   </section>
-
-  <AdSlot placement="sidebar" />
 </aside>
