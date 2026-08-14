@@ -595,16 +595,8 @@ main {
 }
 
 .ad-slot {
-  margin: 1.1rem 0;
+  margin: 1.6rem 0 0.4rem;
   min-height: 1px;
-}
-
-.sidebar .ad-slot {
-  margin: 0;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 0.7rem;
 }
 
 .site-footer {
