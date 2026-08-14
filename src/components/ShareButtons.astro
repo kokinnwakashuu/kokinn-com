@@ -1,0 +1,44 @@
+---
+import site from "../data/site.json";
+
+interface Props {
+  title: string;
+  path: string;
+}
+
+const { title, path } = Astro.props;
+const url = new URL(path, site.site).toString();
+const encodedUrl = encodeURIComponent(url);
+const encodedText = encodeURIComponent(title);
+const xHref = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`;
+const hatenaHref = `https://b.hatena.ne.jp/entry/panel/?url=${encodedUrl}&btitle=${encodedText}`;
+const lineHref = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}`;
+---
+
+<div class="share">
+  <p class="share-label">シェア</p>
+  <p class="share-buttons">
+    <a class="share-btn share-x" href={xHref} target="_blank" rel="noopener noreferrer">X</a>
+    <a class="share-btn share-hatena" href={hatenaHref} target="_blank" rel="noopener noreferrer">はてブ</a>
+    <a class="share-btn share-line" href={lineHref} target="_blank" rel="noopener noreferrer">LINE</a>
+    <button class="share-btn share-copy" type="button" data-copy={url}>コピー</button>
+  </p>
+</div>
+
+<script>
+  document.querySelectorAll(".share-copy").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const value = button.getAttribute("data-copy");
+      if (!value) return;
+      try {
+        await navigator.clipboard.writeText(value);
+        button.textContent = "コピーした";
+        setTimeout(() => {
+          button.textContent = "コピー";
+        }, 1500);
+      } catch {
+        window.prompt("このURLをコピーしてください", value);
+      }
+    });
+  });
+</script>

@@ -636,6 +636,63 @@ main {
   font-size: 0.86rem;
 }
 
+.share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.8rem;
+  margin: 0.9rem 0 1.1rem;
+}
+
+.share-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.2rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.38rem 0.8rem;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.share-x {
+  background: #111;
+}
+
+.share-hatena {
+  background: #00a4de;
+}
+
+.share-line {
+  background: #06c755;
+}
+
+.share-copy {
+  background: #57534e;
+}
+
+.share-btn:hover {
+  filter: brightness(1.08);
+}
+
 .ad-slot {
   margin: 1.6rem 0 0.4rem;
   min-height: 1px;
