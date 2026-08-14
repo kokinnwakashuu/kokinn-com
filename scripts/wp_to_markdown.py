@@ -173,6 +173,7 @@ def write_frontmatter(meta: dict, body: str) -> str:
 CAPTION_RE = re.compile(r"\[caption[^\]]*\](.*?)\[/caption\]", re.I | re.S)
 AMAZONJS_RE = re.compile(r"\[amazonjs([^\]]*)\]", re.I)
 ASIN_RE = re.compile(r'asin="([^"]+)"', re.I)
+MYBOX_RE = re.compile(r"\[st-mybox[^\]]*\]\s*(.*?)\s*\[/st-mybox\]", re.I | re.S)
 GUTENBERG_RE = re.compile(r"<!--\s+/?wp:[^>]*-->")
 MORE_RE = re.compile(r"<!--more-->", re.I)
 
@@ -204,12 +205,22 @@ def convert_content(html: str) -> str:
         return f'<p class="amazon-link"><a href="{url}" rel="nofollow sponsored">Amazonで見る（{asin}）</a></p>'
 
     html = AMAZONJS_RE.sub(amazon_sub, html)
+
+    def mybox_sub(match: re.Match) -> str:
+        inner = re.sub(r"<[^>]+>", "", match.group(1)).strip()
+        inner = re.sub(r"\s+", " ", inner)
+        return f'<div class="st-mybox">{inner}</div>'
+
+    html = MYBOX_RE.sub(mybox_sub, html)
     html = re.sub(r"\n{3,}", "\n\n", html)
     return html.strip()
 
 
 def excerpt_from(html: str, fallback: str) -> str:
-    text = re.sub(r"<[^>]+>", "", html or "")
+    text = MYBOX_RE.sub(lambda m: m.group(1), html or "")
+    text = re.sub(r"\[[^\]]+\]", " ", text)
+    text = re.sub(r"<[^>]+>", "", text)
+    text = re.sub(r"&nbsp;", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
     if not text:
         text = fallback
