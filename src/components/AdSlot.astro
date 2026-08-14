@@ -7,11 +7,24 @@ interface Props {
 
 const { placement = "default" } = Astro.props;
 const enabled = site.enableAds;
+const slotId = "9131675054";
 ---
 
 {
   enabled ? (
-    <div class="ad-slot" data-slot={placement}></div>
+    <div class="ad-slot" data-slot={placement}>
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client={site.adsensePublisher}
+        data-ad-slot={slotId}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+      <script is:inline>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
   ) : (
     <div class="ad-slot" data-slot={placement} hidden></div>
   )
