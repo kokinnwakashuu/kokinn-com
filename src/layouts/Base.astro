@@ -15,7 +15,7 @@ const {
   description = site.description,
   image = "",
 } = Astro.props;
-const pageTitle = title === site.title ? `${site.shortName} | ${site.tagline}` : `${title} | ${site.shortName}`;
+const pageTitle = title === site.title ? title : `${title} | ${site.title}`;
 const canonical = new URL(Astro.url.pathname, site.site).toString().replace(/\/$/, "") || site.site;
 const ogImage = image ? new URL(image, site.site).toString() : `${site.site}/wp-content/uploads/2022/11/101244902_p0.jpg`;
 const adsOn = site.enableAds;
@@ -46,7 +46,7 @@ const nav = [
       rel="stylesheet"
     />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={site.shortName} />
+    <meta property="og:site_name" content={site.title} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -69,8 +69,8 @@ const nav = [
         <a class="brand" href="/">
           <span class="brand-mark" aria-hidden="true">k</span>
           <span class="brand-text">
-            <span class="brand-name">{site.shortName}</span>
-            <span class="tagline">{site.tagline}</span>
+            <span class="brand-name">{site.title}</span>
+            <span class="tagline">{site.description}</span>
           </span>
         </a>
         <input type="checkbox" id="nav-toggle" class="nav-toggle" />
@@ -96,8 +96,8 @@ const nav = [
     <footer class="site-footer">
       <div class="wrap footer-grid">
         <div>
-          <p class="footer-brand">{site.shortName}</p>
-          <p>{site.title}</p>
+          <p class="footer-brand">{site.title}</p>
+          <p>{site.description}</p>
         </div>
         <nav aria-label="フッター">
           <a href={`/category/${encodeURIComponent("自己紹介")}`}>自己紹介</a>

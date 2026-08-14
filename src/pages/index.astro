@@ -19,9 +19,8 @@ const featuredDesc = (featured?.data.description || "")
 
 <Base>
   <section class="hero">
-    <p class="kicker">{site.shortName}</p>
-    <h1>{site.tagline}</h1>
-    <p class="muted">{posts.length}本の記事 / {site.description}</p>
+    <h1>{site.title}</h1>
+    <p class="muted">{site.description} / 公開記事 {posts.length}本</p>
   </section>
 
   {

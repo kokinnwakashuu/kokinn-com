@@ -114,14 +114,15 @@ img {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  max-width: min(38rem, calc(100vw - 7rem));
 }
 
 .brand-name {
-  font-family: var(--display);
+  font-family: var(--font);
   font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: 0.02em;
-  line-height: 1.1;
+  font-size: clamp(0.82rem, 1.6vw, 1.02rem);
+  letter-spacing: 0.01em;
+  line-height: 1.35;
 }
 
 .tagline {
@@ -624,10 +625,11 @@ main {
 
 .footer-brand {
   margin: 0 0 0.3rem;
-  font-family: var(--display);
+  font-family: var(--font);
   color: #fff;
-  font-size: 1.3rem;
+  font-size: 1.05rem;
   font-weight: 700;
+  line-height: 1.45;
 }
 
 .footer-grid nav {
