@@ -1,0 +1,143 @@
+{
+  "title": "自作ゲームの世界を広げることで技術力を高める企画サイト",
+  "description": "no unity no life",
+  "site": "https://kokinn.com",
+  "adsensePublisher": "ca-pub-3308566948805620",
+  "enableAds": false,
+  "categories": [
+    {
+      "name": "AI博物館",
+      "slug": "ai博物館"
+    },
+    {
+      "name": "IT",
+      "slug": "it"
+    },
+    {
+      "name": "NFT",
+      "slug": "nft"
+    },
+    {
+      "name": "Uncategorized",
+      "slug": "uncategorized"
+    },
+    {
+      "name": "asset store",
+      "slug": "asset-store"
+    },
+    {
+      "name": "portfolio",
+      "slug": "portfolio"
+    },
+    {
+      "name": "unity",
+      "slug": "unity"
+    },
+    {
+      "name": "なぜなにudemy！",
+      "slug": "なぜなにudemy！"
+    },
+    {
+      "name": "なぜなにアセット！",
+      "slug": "なぜなにアセット！"
+    },
+    {
+      "name": "ぶいだぶりゅーえっくすわいぜっと",
+      "slug": "ぶいだぶりゅーえっくすわいぜっと"
+    },
+    {
+      "name": "アプリ開発",
+      "slug": "アプリ開発"
+    },
+    {
+      "name": "クリスぺX",
+      "slug": "クリスぺx"
+    },
+    {
+      "name": "フードデリバリー",
+      "slug": "フードデリバリー"
+    },
+    {
+      "name": "ブレヒロ",
+      "slug": "ブレヒロ"
+    },
+    {
+      "name": "プログラミングスクール",
+      "slug": "プログラミングスクール"
+    },
+    {
+      "name": "ペット",
+      "slug": "ペット"
+    },
+    {
+      "name": "世界の最新トレンド",
+      "slug": "世界の最新トレンド"
+    },
+    {
+      "name": "便利アプリ",
+      "slug": "便利アプリ"
+    },
+    {
+      "name": "保育士",
+      "slug": "保育士"
+    },
+    {
+      "name": "幼児教育",
+      "slug": "幼児教育"
+    },
+    {
+      "name": "応用情報技術者試験対策",
+      "slug": "応用情報技術者試験対策"
+    },
+    {
+      "name": "情報処理技術者試験対策",
+      "slug": "情報処理技術者試験対策"
+    },
+    {
+      "name": "期間限定・セール",
+      "slug": "期間限定・セール"
+    },
+    {
+      "name": "未分類",
+      "slug": "未分類-ja"
+    },
+    {
+      "name": "気になったサイト",
+      "slug": "気になったサイト"
+    },
+    {
+      "name": "漫画",
+      "slug": "漫画"
+    },
+    {
+      "name": "簿記",
+      "slug": "簿記"
+    },
+    {
+      "name": "自己紹介",
+      "slug": "自己紹介"
+    },
+    {
+      "name": "英語",
+      "slug": "英語"
+    },
+    {
+      "name": "英語スクール",
+      "slug": "英語スクール"
+    },
+    {
+      "name": "資格取得",
+      "slug": "資格取得"
+    }
+  ],
+  "pages": {
+    "privacy": "プライバシーポリシー",
+    "english-schools": "おうちで学べる！おすすめのオンライン英会話スクール",
+    "programming-schools": "おすすめのプログラミングスクール3つを比較！"
+  },
+  "importNotes": {
+    "headerOptionPresent": false,
+    "footerOptionPresent": false,
+    "amazonOptionKeys": []
+  }
+}

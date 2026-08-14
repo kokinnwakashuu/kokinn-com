@@ -1,0 +1,93 @@
+---
+import "../styles/global.css";
+import site from "../data/site.json";
+import idMap from "../data/wp-id-map.json";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  image = "",
+} = Astro.props;
+const pageTitle = title === site.title ? title : `${title} | ${site.title}`;
+const canonical = new URL(Astro.url.pathname, site.site).toString().replace(/\/$/, "") || site.site;
+const adsOn = import.meta.env.PUBLIC_ENABLE_ADS === "true" && site.enableAds;
+const nav = [
+  { href: "/", label: "ホーム" },
+  { href: `/category/${encodeURIComponent("自己紹介")}`, label: "自己紹介" },
+  { href: "/category/portfolio", label: "portfolio" },
+  { href: `/category/${encodeURIComponent("アプリ開発")}`, label: "アプリ開発" },
+  { href: `/category/${encodeURIComponent("資格取得")}`, label: "資格取得" },
+  { href: "/category/unity", label: "unity" },
+  { href: `/category/${encodeURIComponent("ブレヒロ")}`, label: "ブレヒロ" },
+  { href: "/categories", label: "カテゴリ" },
+];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {image && <meta property="og:image" content={image} />}
+    {adsOn && (
+      <script
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${site.adsensePublisher}`}
+        crossorigin="anonymous"
+      />
+    )}
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <div class="brand-row">
+          <a class="brand" href="/">{site.title}</a>
+          <p class="tagline">{site.description}</p>
+        </div>
+        <nav class="nav-row" aria-label="メイン">
+          {nav.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="wrap">
+        <slot />
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <nav>
+          <a href="/privacy">プライバシーポリシー</a>
+          <a href="/english-schools">英会話スクール</a>
+          <a href="/programming-schools">プログラミングスクール</a>
+          <a href="/categories">カテゴリ一覧</a>
+        </nav>
+        <p>
+          当サイトはAmazonアソシエイト、A8.net、Google AdSenseなどの広告・アフィリエイトプログラムに参加しています。
+        </p>
+        <p>© {new Date().getFullYear()} kokinn.com</p>
+      </div>
+    </footer>
+    <script define:vars={{ idMap }}>
+      const params = new URLSearchParams(window.location.search);
+      const wpId = params.get("p");
+      if (wpId && idMap[wpId]) {
+        window.location.replace(idMap[wpId]);
+      }
+    </script>
+  </body>
+</html>

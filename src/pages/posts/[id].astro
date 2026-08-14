@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import AdSlot from "../../components/AdSlot.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { id: String(post.data.wpId) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const date = post.data.pubDate.slice(0, 10);
+---
+
+<Base title={post.data.title} description={post.data.description} image={post.data.heroImage}>
+  <article class="article">
+    <p class="meta">{date}</p>
+    <h1>{post.data.title}</h1>
+    {
+      post.data.categories.length > 0 && (
+        <p class="chips">
+          {post.data.categories.map((name, i) => (
+            <a href={`/category/${encodeURIComponent(post.data.categorySlugs[i] || name)}`}>{name}</a>
+          ))}
+        </p>
+      )
+    }
+    <AdSlot placement="top" />
+    <div class="content">
+      <Content />
+    </div>
+    <AdSlot placement="bottom" />
+  </article>
+</Base>

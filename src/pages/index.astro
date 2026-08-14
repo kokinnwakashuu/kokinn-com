@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PostCard from "../components/PostCard.astro";
+import site from "../data/site.json";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.localeCompare(a.data.pubDate),
+);
+const latest = posts.slice(0, 20);
+---
+
+<Base>
+  <section class="hero">
+    <h1>{site.title}</h1>
+    <p class="muted">{site.description} / 公開記事 {posts.length}本</p>
+  </section>
+  <div class="grid">
+    {latest.map((post) => <PostCard post={post} />)}
+  </div>
+  {
+    posts.length > 20 && (
+      <p class="pager">
+        <a href="/page/2">次の記事へ</a>
+      </p>
+    )
+  }
+</Base>

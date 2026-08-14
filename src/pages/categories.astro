@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import site from "../data/site.json";
+
+const posts = await getCollection("posts", ({ data }) => !data.draft);
+const counts = new Map<string, { name: string; count: number }>();
+for (const post of posts) {
+  post.data.categories.forEach((name, i) => {
+    const slug = post.data.categorySlugs[i] || name;
+    const cur = counts.get(slug) || { name, count: 0 };
+    cur.count += 1;
+    counts.set(slug, cur);
+  });
+}
+const categories = [...counts.entries()].sort((a, b) => b[1].count - a[1].count);
+---
+
+<Base title="カテゴリ一覧">
+  <section class="hero">
+    <h1>カテゴリ一覧</h1>
+    <p class="muted">{site.title}</p>
+  </section>
+  <p class="chips">
+    {
+      categories.map(([slug, item]) => (
+        <a href={`/category/${encodeURIComponent(slug)}`}>
+          {item.name} ({item.count})
+        </a>
+      ))
+    }
+  </p>
+</Base>

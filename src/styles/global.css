@@ -1,0 +1,231 @@
+:root {
+  --bg: #f6f1e8;
+  --bg-card: #fffdf8;
+  --ink: #1d1a16;
+  --muted: #5c564c;
+  --line: #d9d0c2;
+  --accent: #b45309;
+  --accent-ink: #fff7ed;
+  --header: #1f2933;
+  --link: #9a3412;
+  --max: 72rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", Meiryo, sans-serif;
+  line-height: 1.75;
+}
+
+a {
+  color: var(--link);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.wrap {
+  width: min(var(--max), calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.site-header {
+  background: var(--header);
+  color: #f8fafc;
+}
+
+.site-header a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-row,
+.nav-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-row {
+  padding: 1.1rem 0 0.4rem;
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.tagline {
+  color: #cbd5e1;
+  font-size: 0.85rem;
+}
+
+.nav-row {
+  padding: 0.4rem 0 0.9rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.nav-row a,
+.cat-chip {
+  display: inline-block;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.nav-row a:hover,
+.cat-chip:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+main {
+  padding: 1.75rem 0 3rem;
+}
+
+.hero {
+  padding: 0.5rem 0 1.5rem;
+}
+
+.hero h1 {
+  margin: 0 0 0.4rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.35;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.card a.card-link {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #ece4d6;
+  min-height: 8rem;
+}
+
+.card-body {
+  padding: 1rem 1.1rem 1.15rem;
+}
+
+.card h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.meta,
+.muted {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0;
+}
+
+.chips a {
+  text-decoration: none;
+  background: #f3e7d3;
+  color: #7c2d12;
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+  font-size: 0.78rem;
+}
+
+.article {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.4rem 1.3rem 2rem;
+}
+
+.article h1 {
+  margin-top: 0;
+  line-height: 1.4;
+}
+
+.article :is(h2, h3, h4) {
+  line-height: 1.4;
+}
+
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.article th,
+.article td {
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.55rem;
+}
+
+.ad-slot {
+  margin: 1.2rem 0;
+  min-height: 1px;
+}
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 1.5rem 0 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.pager {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+@media (max-width: 720px) {
+  .card a.card-link {
+    grid-template-columns: 1fr;
+  }
+
+  .card img {
+    min-height: 10rem;
+    max-height: 12rem;
+  }
+}

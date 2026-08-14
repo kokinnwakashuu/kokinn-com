@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PostCard from "../../components/PostCard.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  const buckets = new Map<string, typeof posts>();
+  for (const post of posts) {
+    const slugs = post.data.categorySlugs.length ? post.data.categorySlugs : post.data.categories;
+    for (const slug of slugs) {
+      const list = buckets.get(slug) ?? [];
+      list.push(post);
+      buckets.set(slug, list);
+    }
+  }
+  return [...buckets.entries()].map(([slug, list]) => ({
+    params: { slug },
+    props: {
+      slug,
+      name: list[0]?.data.categories[list[0].data.categorySlugs.indexOf(slug)] || slug,
+      posts: list.sort((a, b) => b.data.pubDate.localeCompare(a.data.pubDate)),
+    },
+  }));
+}
+
+const { slug, name, posts } = Astro.props;
+---
+
+<Base title={name}>
+  <section class="hero">
+    <h1>{name}</h1>
+    <p class="muted">{posts.length}本 / {slug}</p>
+  </section>
+  <div class="grid">
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+</Base>
