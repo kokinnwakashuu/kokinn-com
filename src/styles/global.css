@@ -454,6 +454,48 @@ main {
   border-radius: 0.9rem;
 }
 
+.article .content img.profile-photo {
+  width: min(14rem, 70%);
+  height: auto;
+  margin: 0 auto 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 12px 28px rgba(12, 10, 18, 0.12);
+}
+
+.article .content .link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.4rem;
+}
+
+.article .content .link-row a {
+  display: inline-block;
+  text-decoration: none;
+  background: var(--header);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.38rem 0.9rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.article .content .link-row a:hover {
+  background: #1f1a2c;
+}
+
+.article .content ul {
+  margin: 0.4rem 0 1.1rem;
+  padding-left: 1.2rem;
+}
+
+.article .content .fine-print {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.65;
+  margin: 0.4rem 0 1.4rem;
+}
+
 .article .content figure {
   margin: 1.2rem 0;
 }
