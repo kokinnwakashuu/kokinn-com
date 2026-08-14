@@ -23,7 +23,7 @@ const categories = [...counts.entries()].sort((a, b) => b[1].count - a[1].count)
   <div class="cat-grid">
     {
       categories.map(([slug, item]) => (
-        <a class="cat-tile" href={`/category/${encodeURIComponent(slug)}`}>
+        <a class="cat-tile" href={`/category/${encodeURIComponent(slug)}`} data-google-vignette="false">
           <span>{item.name}</span>
           <span class="count">{item.count}</span>
         </a>

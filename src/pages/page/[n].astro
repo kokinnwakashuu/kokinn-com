@@ -39,7 +39,7 @@ const { n, pages, posts } = Astro.props;
     {posts.map((post) => <PostCard post={post} />)}
   </div>
   <p class="pager">
-    {n > 1 && <a href={n === 2 ? "/" : `/page/${n - 1}`}>前へ</a>}
-    {n < pages && <a href={`/page/${n + 1}`}>次へ</a>}
+    {n > 1 && <a href={n === 2 ? "/" : `/page/${n - 1}`} data-google-vignette="false">前へ</a>}
+    {n < pages && <a href={`/page/${n + 1}`} data-google-vignette="false">次へ</a>}
   </p>
 </Base>

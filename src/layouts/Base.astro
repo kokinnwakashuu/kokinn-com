@@ -31,7 +31,7 @@ const nav = [
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-google-vignette="false">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -56,17 +56,31 @@ const nav = [
       <meta name="google-adsense-account" content={site.adsensePublisher} />
     )}
     {adsOn && (
-      <script
-        async
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${site.adsensePublisher}`}
-        crossorigin="anonymous"
-      />
+      <>
+        <script is:inline>
+          document.addEventListener(
+            "click",
+            (event) => {
+              const target = event.target;
+              const link = target instanceof Element ? target.closest("a") : null;
+              if (link) link.setAttribute("data-google-vignette", "false");
+            },
+            true,
+          );
+        </script>
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${site.adsensePublisher}`}
+          crossorigin="anonymous"
+          data-overlays="bottom"
+        />
+      </>
     )}
   </head>
   <body>
     <header class="site-header">
       <div class="wrap header-inner">
-        <a class="brand" href="/">
+        <a class="brand" href="/" data-google-vignette="false">
           <span class="brand-mark" aria-hidden="true">k</span>
           <span class="brand-text">
             <span class="brand-name">{site.title}</span>
@@ -80,7 +94,7 @@ const nav = [
         </label>
         <nav class="nav-row" aria-label="メイン">
           {nav.map((item) => (
-            <a href={item.href}>{item.label}</a>
+            <a href={item.href} data-google-vignette="false">{item.label}</a>
           ))}
         </nav>
       </div>
@@ -100,11 +114,11 @@ const nav = [
           <p>{site.description}</p>
         </div>
         <nav aria-label="フッター">
-          <a href={`/category/${encodeURIComponent("自己紹介")}`}>自己紹介</a>
-          <a href="/categories">カテゴリ一覧</a>
-          <a href="/privacy">プライバシーポリシー</a>
-          <a href="/english-schools">英会話スクール</a>
-          <a href="/programming-schools">プログラミングスクール</a>
+          <a href={`/category/${encodeURIComponent("自己紹介")}`} data-google-vignette="false">自己紹介</a>
+          <a href="/categories" data-google-vignette="false">カテゴリ一覧</a>
+          <a href="/privacy" data-google-vignette="false">プライバシーポリシー</a>
+          <a href="/english-schools" data-google-vignette="false">英会話スクール</a>
+          <a href="/programming-schools" data-google-vignette="false">プログラミングスクール</a>
         </nav>
         <p class="footer-note">
           当サイトはAmazonアソシエイト、A8.net、Google AdSenseなどの広告・アフィリエイトプログラムに参加しています。

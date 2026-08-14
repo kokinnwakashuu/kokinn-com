@@ -23,7 +23,7 @@ const date = post.data.pubDate.slice(0, 10);
         post.data.categories.length > 0 && (
           <p class="chips">
             {post.data.categories.map((name, i) => (
-              <a href={`/category/${encodeURIComponent(post.data.categorySlugs[i] || name)}`}>{name}</a>
+              <a href={`/category/${encodeURIComponent(post.data.categorySlugs[i] || name)}`} data-google-vignette="false">{name}</a>
             ))}
           </p>
         )

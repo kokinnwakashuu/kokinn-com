@@ -28,7 +28,7 @@ const categories = [...counts.entries()]
     />
     <h2>kokinn</h2>
     <p>アプリ・ゲーム開発と資格取得の記録。会計修士（MBA）、保育士、応用情報など。</p>
-    <a class="side-btn" href={`/category/${encodeURIComponent("自己紹介")}`}>プロフィールを見る</a>
+    <a class="side-btn" href={`/category/${encodeURIComponent("自己紹介")}`} data-google-vignette="false">プロフィールを見る</a>
   </section>
 
   <section class="side-card">
@@ -37,7 +37,7 @@ const categories = [...counts.entries()]
       {
         categories.map(([slug, item]) => (
           <li>
-            <a href={`/category/${encodeURIComponent(slug)}`}>
+            <a href={`/category/${encodeURIComponent(slug)}`} data-google-vignette="false">
               <span>{item.name}</span>
               <span class="count">{item.count}</span>
             </a>
@@ -45,7 +45,7 @@ const categories = [...counts.entries()]
         ))
       }
     </ul>
-    <a class="side-more" href="/categories">すべてのカテゴリ</a>
+    <a class="side-more" href="/categories" data-google-vignette="false">すべてのカテゴリ</a>
   </section>
 
   <AdSlot placement="sidebar" />
