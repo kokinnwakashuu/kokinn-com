@@ -8,16 +8,24 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  type?: "website" | "article";
 }
 
 const {
   title = site.title,
   description = site.description,
   image = "",
+  type = "website",
 } = Astro.props;
 const pageTitle = title === site.title ? title : `${title} | ${site.title}`;
 const canonical = new URL(Astro.url.pathname, site.site).toString().replace(/\/$/, "") || site.site;
-const ogImage = image ? new URL(image, site.site).toString() : `${site.site}/images/profile.png`;
+const imagePath = image || "/images/profile.png";
+const ogImage = new URL(imagePath, site.site);
+ogImage.pathname = ogImage.pathname
+  .split("/")
+  .map((part) => encodeURIComponent(part))
+  .join("/");
+const ogImageUrl = ogImage.toString();
 const adsOn = site.enableAds;
 const nav = [
   { href: "/", label: "ホーム" },
@@ -45,13 +53,19 @@ const nav = [
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content="ja_JP" />
     <meta property="og:site_name" content={site.title} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={title} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={title} />
     {adsOn && (
       <meta name="google-adsense-account" content={site.adsensePublisher} />
     )}

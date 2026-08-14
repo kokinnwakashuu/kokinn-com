@@ -17,7 +17,7 @@ const { Content } = await post.render();
 const date = post.data.pubDate.slice(0, 10);
 ---
 
-<Base title={post.data.title} description={post.data.description} image={post.data.heroImage}>
+<Base title={post.data.title} description={post.data.description} image={post.data.heroImage} type="article">
   <article class="article">
     <header class="article-head">
       {
