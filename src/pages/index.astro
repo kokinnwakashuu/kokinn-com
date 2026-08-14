@@ -8,20 +8,47 @@ import site from "../data/site.json";
 const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.localeCompare(a.data.pubDate),
 );
-const latest = posts.slice(0, 20);
+const featured = posts[0];
+const latest = posts.slice(1, 13);
+const featuredDate = featured?.data.pubDate.slice(0, 10) ?? "";
+const featuredDesc = (featured?.data.description || "")
+  .replace(/&nbsp;/g, " ")
+  .replace(/\s+/g, " ")
+  .trim();
 ---
 
 <Base>
   <section class="hero">
-    <h1>{site.title}</h1>
-    <p class="muted">{site.description} / 公開記事 {posts.length}本</p>
+    <p class="kicker">{site.shortName}</p>
+    <h1>{site.tagline}</h1>
+    <p class="muted">{posts.length}本の記事 / {site.description}</p>
   </section>
+
+  {
+    featured && (
+      <a class="featured" href={`/posts/${featured.data.wpId}`}>
+        <div class="featured-thumb">
+          {featured.data.heroImage ? (
+            <img src={featured.data.heroImage} alt="" />
+          ) : (
+            <div class="card-fallback" aria-hidden="true">k</div>
+          )}
+        </div>
+        <div class="featured-body">
+          <p class="meta">最新記事 / {featuredDate}</p>
+          <h2>{featured.data.title}</h2>
+          {featuredDesc && <p>{featuredDesc}</p>}
+        </div>
+      </a>
+    )
+  }
+
   <AdSlot placement="home-top" />
   <div class="grid">
     {latest.map((post) => <PostCard post={post} />)}
   </div>
   {
-    posts.length > 20 && (
+    posts.length > 13 && (
       <p class="pager">
         <a href="/page/2">次の記事へ</a>
       </p>

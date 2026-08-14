@@ -8,24 +8,31 @@ interface Props {
 const { post } = Astro.props;
 const href = `/posts/${post.data.wpId}`;
 const date = post.data.pubDate.slice(0, 10);
+const category = post.data.categories[0];
+const description = (post.data.description || "")
+  .replace(/&nbsp;/g, " ")
+  .replace(/\s+/g, " ")
+  .trim();
 ---
 
 <article class="card">
   <a class="card-link" href={href}>
-    {post.data.heroImage ? <img src={post.data.heroImage} alt="" /> : <div></div>}
-    <div class="card-body">
-      <p class="meta">{date}</p>
-      <h2>{post.data.title}</h2>
-      <p class="muted">{post.data.description}</p>
+    <div class="card-thumb">
       {
-        post.data.categories.length > 0 && (
-          <p class="chips">
-            {post.data.categories.map((name, i) => (
-              <span>{name}</span>
-            ))}
-          </p>
+        post.data.heroImage ? (
+          <img src={post.data.heroImage} alt="" loading="lazy" />
+        ) : (
+          <div class="card-fallback" aria-hidden="true">k</div>
         )
       }
+    </div>
+    <div class="card-body">
+      <p class="meta">
+        <time datetime={date}>{date}</time>
+        {category && <span>{category}</span>}
+      </p>
+      <h2>{post.data.title}</h2>
+      {description && <p class="muted">{description}</p>}
     </div>
   </a>
 </article>

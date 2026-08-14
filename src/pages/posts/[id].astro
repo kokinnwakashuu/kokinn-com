@@ -18,17 +18,22 @@ const date = post.data.pubDate.slice(0, 10);
 
 <Base title={post.data.title} description={post.data.description} image={post.data.heroImage}>
   <article class="article">
-    <p class="meta">{date}</p>
-    <h1>{post.data.title}</h1>
-    {
-      post.data.categories.length > 0 && (
-        <p class="chips">
-          {post.data.categories.map((name, i) => (
-            <a href={`/category/${encodeURIComponent(post.data.categorySlugs[i] || name)}`}>{name}</a>
-          ))}
-        </p>
-      )
-    }
+    <header class="article-head">
+      {
+        post.data.categories.length > 0 && (
+          <p class="chips">
+            {post.data.categories.map((name, i) => (
+              <a href={`/category/${encodeURIComponent(post.data.categorySlugs[i] || name)}`}>{name}</a>
+            ))}
+          </p>
+        )
+      }
+      <h1>{post.data.title}</h1>
+      <p class="meta">
+        <time datetime={date}>{date}</time>
+        {post.data.updatedDate && <span>更新 {post.data.updatedDate.slice(0, 10)}</span>}
+      </p>
+    </header>
     <AdSlot placement="top" />
     <div class="content">
       <Content />

@@ -24,13 +24,14 @@ export async function getStaticPaths() {
   }));
 }
 
-const { slug, name, posts } = Astro.props;
+const { name, posts } = Astro.props;
 ---
 
 <Base title={name}>
   <section class="hero">
+    <p class="kicker">CATEGORY</p>
     <h1>{name}</h1>
-    <p class="muted">{posts.length}本 / {slug}</p>
+    <p class="muted">{posts.length}本の記事</p>
   </section>
   <div class="grid">
     {posts.map((post) => <PostCard post={post} />)}

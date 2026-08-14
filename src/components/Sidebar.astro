@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+import AdSlot from "./AdSlot.astro";
+
+const posts = await getCollection("posts", ({ data }) => !data.draft);
+const counts = new Map<string, { name: string; count: number }>();
+for (const post of posts) {
+  post.data.categories.forEach((name, i) => {
+    const slug = post.data.categorySlugs[i] || name;
+    const cur = counts.get(slug) || { name, count: 0 };
+    cur.count += 1;
+    counts.set(slug, cur);
+  });
+}
+const categories = [...counts.entries()]
+  .sort((a, b) => b[1].count - a[1].count)
+  .slice(0, 12);
+---
+
+<aside class="sidebar">
+  <section class="side-card profile-card">
+    <img
+      class="avatar"
+      src="/wp-content/uploads/2022/11/101244902_p0.jpg"
+      alt="kokinn"
+      width="96"
+      height="96"
+    />
+    <h2>kokinn</h2>
+    <p>アプリ・ゲーム開発と資格取得の記録。会計修士（MBA）、保育士、応用情報など。</p>
+    <a class="side-btn" href={`/category/${encodeURIComponent("自己紹介")}`}>プロフィールを見る</a>
+  </section>
+
+  <section class="side-card">
+    <h2>カテゴリ</h2>
+    <ul class="side-cats">
+      {
+        categories.map(([slug, item]) => (
+          <li>
+            <a href={`/category/${encodeURIComponent(slug)}`}>
+              <span>{item.name}</span>
+              <span class="count">{item.count}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a class="side-more" href="/categories">すべてのカテゴリ</a>
+  </section>
+
+  <AdSlot placement="sidebar" />
+</aside>

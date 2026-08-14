@@ -18,16 +18,18 @@ const categories = [...counts.entries()].sort((a, b) => b[1].count - a[1].count)
 
 <Base title="カテゴリ一覧">
   <section class="hero">
+    <p class="kicker">{site.shortName}</p>
     <h1>カテゴリ一覧</h1>
-    <p class="muted">{site.title}</p>
+    <p class="muted">{categories.length}カテゴリ / {posts.length}本の記事</p>
   </section>
-  <p class="chips">
+  <div class="cat-grid">
     {
       categories.map(([slug, item]) => (
-        <a href={`/category/${encodeURIComponent(slug)}`}>
-          {item.name} ({item.count})
+        <a class="cat-tile" href={`/category/${encodeURIComponent(slug)}`}>
+          <span>{item.name}</span>
+          <span class="count">{item.count}</span>
         </a>
       ))
     }
-  </p>
+  </div>
 </Base>

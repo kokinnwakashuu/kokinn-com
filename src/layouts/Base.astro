@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import site from "../data/site.json";
 import idMap from "../data/wp-id-map.json";
+import Sidebar from "../components/Sidebar.astro";
 
 interface Props {
   title?: string;
@@ -14,16 +15,16 @@ const {
   description = site.description,
   image = "",
 } = Astro.props;
-const pageTitle = title === site.title ? title : `${title} | ${site.title}`;
+const pageTitle = title === site.title ? `${site.shortName} | ${site.tagline}` : `${title} | ${site.shortName}`;
 const canonical = new URL(Astro.url.pathname, site.site).toString().replace(/\/$/, "") || site.site;
+const ogImage = image ? new URL(image, site.site).toString() : `${site.site}/wp-content/uploads/2022/11/101244902_p0.jpg`;
 const adsOn = site.enableAds;
 const nav = [
   { href: "/", label: "ホーム" },
   { href: `/category/${encodeURIComponent("自己紹介")}`, label: "自己紹介" },
-  { href: "/category/portfolio", label: "portfolio" },
-  { href: `/category/${encodeURIComponent("アプリ開発")}`, label: "アプリ開発" },
-  { href: `/category/${encodeURIComponent("資格取得")}`, label: "資格取得" },
-  { href: "/category/unity", label: "unity" },
+  { href: `/category/${encodeURIComponent("アプリ開発")}`, label: "アプリ" },
+  { href: `/category/${encodeURIComponent("資格取得")}`, label: "資格" },
+  { href: "/category/unity", label: "Unity" },
   { href: `/category/${encodeURIComponent("ブレヒロ")}`, label: "ブレヒロ" },
   { href: "/categories", label: "カテゴリ" },
 ];
@@ -37,10 +38,20 @@ const nav = [
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.shortName} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    {image && <meta property="og:image" content={image} />}
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
     {adsOn && (
       <meta name="google-adsense-account" content={site.adsensePublisher} />
     )}
@@ -54,11 +65,19 @@ const nav = [
   </head>
   <body>
     <header class="site-header">
-      <div class="wrap">
-        <div class="brand-row">
-          <a class="brand" href="/">{site.title}</a>
-          <p class="tagline">{site.description}</p>
-        </div>
+      <div class="wrap header-inner">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">k</span>
+          <span class="brand-text">
+            <span class="brand-name">{site.shortName}</span>
+            <span class="tagline">{site.tagline}</span>
+          </span>
+        </a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label class="nav-toggle-btn" for="nav-toggle">
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+          <span class="sr-only">メニュー</span>
+        </label>
         <nav class="nav-row" aria-label="メイン">
           {nav.map((item) => (
             <a href={item.href}>{item.label}</a>
@@ -67,23 +86,31 @@ const nav = [
       </div>
     </header>
     <main>
-      <div class="wrap">
-        <slot />
+      <div class="wrap page-grid">
+        <div class="main-col">
+          <slot />
+        </div>
+        <Sidebar />
       </div>
     </main>
     <footer class="site-footer">
-      <div class="wrap">
-        <nav>
+      <div class="wrap footer-grid">
+        <div>
+          <p class="footer-brand">{site.shortName}</p>
+          <p>{site.title}</p>
+        </div>
+        <nav aria-label="フッター">
+          <a href={`/category/${encodeURIComponent("自己紹介")}`}>自己紹介</a>
+          <a href="/categories">カテゴリ一覧</a>
           <a href="/privacy">プライバシーポリシー</a>
           <a href="/english-schools">英会話スクール</a>
           <a href="/programming-schools">プログラミングスクール</a>
-          <a href="/categories">カテゴリ一覧</a>
         </nav>
-        <p>
+        <p class="footer-note">
           当サイトはAmazonアソシエイト、A8.net、Google AdSenseなどの広告・アフィリエイトプログラムに参加しています。
         </p>
-        <p>© {new Date().getFullYear()} kokinn.com</p>
       </div>
+      <p class="wrap copyright">© {new Date().getFullYear()} kokinn.com</p>
     </footer>
     <script define:vars={{ idMap }}>
       const params = new URLSearchParams(window.location.search);
